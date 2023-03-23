@@ -15,3 +15,39 @@ print("For Animals enter A")
 print("For Fruits enter F")
 print("For Vegetables enter V")
 print("For Plants enter P")
+user_selection=str(input(""))
+if user_selection=='A' or user_selection=='a':
+    secret_word=random.choice(list_of_animals)
+elif user_selection=='F' or user_selection=='f':
+    secret_word=random.choice(list_of_fruits)
+elif user_selection=='V' or user_selection=='v':
+    secret_word=random.choice(list_of_vegetables)
+elif user_selection=='P' or user_selection=='p':
+    secret_word=random.choice(list_of_plants)
+else:
+    print("You have entered an unsupported character")
+errors_allowed=10
+user_guesses=[]
+flag_completed=False
+while not flag_completed:
+    for letter in secret_word:
+        if letter.lower()in user_guesses:
+            print(letter,end=" ")
+        else:
+            print("_",end=" ")
+    print("")
+    guess=input(f"No. of allowed errors left:{errors_allowed} ,Guess please:")
+    user_guesses.append(guess.lower())
+    if guess.lower() not in secret_word.lower():
+        errors_allowed-=1
+        if errors_allowed==0:
+            break
+    flag_completed=True
+    for letter in secret_word:
+        if letter.lower() not in user_guesses:
+            flag_completed=False
+print("")
+if flag_completed:
+    print(f"CONGRATULATIONS!, YOU WON, THE WORD WAS: {secret_word}!")
+else:
+    print(f"GAME OVER! You lost!, The word was {secret_word}","Better luck next time.")
